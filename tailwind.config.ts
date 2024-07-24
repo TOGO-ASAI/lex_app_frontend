@@ -7,7 +7,7 @@ export default <Partial<Config>>{
         primary: "#FF6F07",
         "orange-white": "#F6F2EF",
         grey: {
-          dark: "#1B191A",
+          dark: "#1A1A1A",
           medium: "#232323",
           light: "#303030",
         },

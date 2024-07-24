@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="showUploadModal || showRecordModal || isLoading"
-    class="fixed inset-0 z-10 flex items-center justify-center bg-black/50"
+    class="fixed inset-0 z-10 flex items-center justify-center bg-black/70"
   >
     <div
       v-if="isLoading"
@@ -9,31 +9,32 @@
     ></div>
   </div>
   <div class="relative flex min-h-screen flex-col">
-    <div class="flex flex-shrink justify-center">
-      <h1 class="mt-6 text-3xl font-medium text-primary">HOME</h1>
-    </div>
+    <div class="flex flex-shrink justify-center"></div>
     <div class="flex flex-grow justify-center">
-      <div class="flex items-center">
+      <div class="flex items-center gap-10">
         <button
-          class="mx-11 flex flex-row items-center"
+          class="mx-11 flex flex-col items-center opacity-80 transition-transform duration-300 hover:scale-125 hover:opacity-100"
           @click="showUploadModal = true"
         >
           <img
             class="w-20"
             src="../assets/images/upload.svg"
           />
-          <p class="text-3xl font-medium text-primary">Upload</p>
+          <p class="text-sm font-semibold text-primary drop-shadow-2xl">
+            UPLOAD
+          </p>
         </button>
-        <div class="h-20 w-[1px] bg-grey-light"></div>
         <button
-          class="mx-11 flex flex-row items-center"
+          class="mx-11 flex flex-col items-center opacity-80 transition-transform duration-300 hover:scale-125 hover:opacity-100"
           @click="showRecordModal = true"
         >
           <img
             class="w-20"
-            src="../assets/images/voice.svg"
+            src="../assets/images/sounds.svg"
           />
-          <p class="text-3xl font-medium text-primary">Record</p>
+          <p class="text-sm font-semibold text-primary drop-shadow-2xl">
+            RECORD
+          </p>
         </button>
       </div>
     </div>
@@ -41,41 +42,43 @@
     <!-- ファイルアップロードモーダル -->
     <div
       v-if="showUploadModal"
-      class="fixed left-1/2 top-1/2 z-20 translate-x-[-50%] translate-y-[-80%] rounded-lg bg-grey-medium px-3 py-2 shadow-lg"
+      class="fixed left-1/2 top-3/4 z-20 flex translate-x-[-50%] flex-col items-center justify-center gap-4"
     >
-      <button
-        class="absolute right-[-2rem] top-[-2rem] w-8 cursor-pointer rounded-full shadow-lg hover:bg-red-600/40"
-        @click="showUploadModal = false"
-      >
-        <img
-          class="p-1"
-          src="../assets/images/close_white.svg"
-        />
-      </button>
-      <form
-        @submit.prevent="handleSubmit"
-        enctype="multipart/form-data"
-        class="relative flex items-center space-x-3"
-      >
-        <div class="px-3 py-2">
-          <input
-            class="border-e-red-300 text-orange-white file:mr-4 file:rounded-md file:border-0 file:bg-grey-light file:px-4 file:py-2 file:text-sm file:text-orange-white"
-            type="file"
-            name="input_data"
-            @change="handleFileChange"
-          />
-        </div>
+      <div class="relative rounded-sm border border-grey-dark px-3 shadow-lg">
         <button
-          type="submit"
-          class="rounded-full bg-primary px-2 py-2"
+          class="absolute right-[-1.5rem] top-[-1.7rem] w-6 cursor-pointer rounded-full shadow-lg hover:bg-red-600/40"
+          @click="showUploadModal = false"
         >
           <img
-            class="w-6"
-            src="../assets/images/arrow_right.svg"
-            alt=""
+            class="p-1 text-stone-300"
+            src="../assets/images/close_white.svg"
           />
         </button>
-      </form>
+        <form
+          @submit.prevent="handleSubmit"
+          enctype="multipart/form-data"
+          class="relative flex items-center space-x-3"
+        >
+          <div class="px-2 py-3">
+            <input
+              class="text-xs text-stone-500 file:mr-2 file:rounded-sm file:border-0 file:bg-transparent file:px-3.5 file:py-2 file:text-xs file:text-stone-300 file:underline file:decoration-1 file:hover:bg-grey-dark/50"
+              type="file"
+              name="input_data"
+              @change="handleFileChange"
+            />
+          </div>
+          <button
+            type="submit"
+            class="rounded-full py-2"
+          >
+            <img
+              class="absolute left-1/2 top-20 w-9 translate-x-[-50%] transition-transform duration-300 hover:scale-110"
+              src="../assets/images/arrow-right-circle.svg"
+              alt=""
+            />
+          </button>
+        </form>
+      </div>
     </div>
 
     <!-- 音声録音モーダル -->
