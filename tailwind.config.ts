@@ -4,7 +4,7 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        primary: "#FF6F07",
+        primary: "#FF7F00",
         "orange-white": "#F6F2EF",
         grey: {
           dark: "#1A1A1A",
