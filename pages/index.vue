@@ -47,7 +47,7 @@
         >
           <img
             class="p-1 text-stone-300"
-            src="../assets/images/close_white.svg"
+            src="../assets/images/close.svg"
           />
         </button>
         <form
@@ -57,7 +57,7 @@
         >
           <div class="px-2 py-3">
             <input
-              class="text-sm text-stone-500 file:rounded-sm file:border-0 file:bg-transparent file:px-3.5 file:py-2 file:text-sm file:text-primary file:underline file:decoration-1 file:hover:bg-primary/10"
+              class="text-sm text-stone-500 file:rounded-md file:border-0 file:bg-transparent file:px-3.5 file:py-2 file:text-sm file:text-primary file:underline file:decoration-1 file:hover:bg-primary/10"
               type="file"
               name="input_data"
               @change="handleFileChange"
