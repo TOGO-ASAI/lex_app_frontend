@@ -11,30 +11,26 @@
   <div class="relative flex min-h-screen flex-col">
     <div class="flex flex-shrink justify-center"></div>
     <div class="flex flex-grow justify-center">
-      <div class="flex items-center gap-10">
+      <div class="flex items-center gap-6">
         <button
-          class="mx-11 flex flex-col items-center opacity-80 transition-transform duration-300 hover:scale-125 hover:opacity-100"
+          class="mx-11 flex flex-col items-center transition-transform duration-300 hover:scale-125 hover:opacity-100"
           @click="showUploadModal = true"
         >
           <img
-            class="w-20"
+            class="aspect-square w-16 sm:w-24"
             src="../assets/images/upload.svg"
           />
-          <p class="text-sm font-semibold text-primary drop-shadow-2xl">
-            UPLOAD
-          </p>
+          <p class="primary-shadow text-md text-primary">UPLOAD</p>
         </button>
         <button
-          class="mx-11 flex flex-col items-center opacity-80 transition-transform duration-300 hover:scale-125 hover:opacity-100"
+          class="mx-11 flex flex-col items-center transition-transform duration-300 hover:scale-125 hover:opacity-100"
           @click="showRecordModal = true"
         >
           <img
-            class="w-20"
+            class="aspect-square w-16 sm:w-24"
             src="../assets/images/sounds.svg"
           />
-          <p class="text-sm font-semibold text-primary drop-shadow-2xl">
-            RECORD
-          </p>
+          <p class="primary-shadow text-md text-primary">RECORD</p>
         </button>
       </div>
     </div>
@@ -42,9 +38,9 @@
     <!-- ファイルアップロードモーダル -->
     <div
       v-if="showUploadModal"
-      class="fixed left-1/2 top-3/4 z-20 flex translate-x-[-50%] flex-col items-center justify-center gap-4"
+      class="fixed left-1/2 top-3/4 z-20 flex max-w-xs translate-x-[-50%] flex-col items-center justify-center gap-4"
     >
-      <div class="relative rounded-sm border border-grey-dark px-3 shadow-lg">
+      <div class="relative rounded-md border border-primary px-3 shadow-lg">
         <button
           class="absolute right-[-1.5rem] top-[-1.7rem] w-6 cursor-pointer rounded-full shadow-lg hover:bg-red-600/40"
           @click="showUploadModal = false"
@@ -61,7 +57,7 @@
         >
           <div class="px-2 py-3">
             <input
-              class="text-xs text-stone-500 file:mr-2 file:rounded-sm file:border-0 file:bg-transparent file:px-3.5 file:py-2 file:text-xs file:text-stone-300 file:underline file:decoration-1 file:hover:bg-grey-dark/50"
+              class="text-sm text-stone-500 file:rounded-sm file:border-0 file:bg-transparent file:px-3.5 file:py-2 file:text-sm file:text-primary file:underline file:decoration-1 file:hover:bg-primary/10"
               type="file"
               name="input_data"
               @change="handleFileChange"
@@ -84,68 +80,64 @@
     <!-- 音声録音モーダル -->
     <div
       v-if="showRecordModal"
-      class="fixed left-1/2 top-1/2 z-20 flex translate-x-[-50%] translate-y-[-80%] rounded-lg bg-grey-medium px-5 py-3 shadow-lg"
+      class="fixed left-1/2 top-3/4 z-20 flex max-w-xs translate-x-[-50%] flex-col items-center justify-center gap-4"
     >
       <button
-        class="absolute right-[-2rem] top-[-2rem] w-8 cursor-pointer rounded-full shadow-lg hover:bg-red-600/40"
-        @click="showRecordModal = false"
+        class="absolute right-[-2rem] top-[-2rem] w-8 cursor-pointer rounded-full shadow-lg hover:bg-red-700/50"
+        @click="closeRecordModal"
       >
         <img
           class="p-1"
-          src="../assets/images/close_white.svg"
+          src="../assets/images/close.svg"
         />
       </button>
       <div
         v-if="doneRecording === false"
-        class="flex items-center justify-between space-x-6"
+        class="flex flex-col items-center justify-between gap-3"
       >
         <div
-          class=""
+          class="relative"
           @click="switchIsRecording()"
         >
           <button
-            class="w-38 flex items-center space-x-2 rounded-full border-2 border-orange-white px-2 py-1 text-2xl text-orange-white hover:bg-grey-light"
+            class="flex w-36 items-center space-x-2 rounded-md border border-primary px-2 py-1 hover:bg-primary/10"
             v-if="isRecording === false"
             @click="startRecording"
           >
             <img
               class="w-9"
-              src="../assets/images/start_recording.svg"
+              src="../assets/images/play.svg"
               alt=""
             />
-            <p class="pb-1 pr-2 font-medium">Record</p>
+            <p class="pb-0.5 pr-2 text-xl font-light text-primary">Record</p>
           </button>
           <button
-            class="w-38 flex items-center space-x-2 rounded-full border-2 border-[#ff0000] px-2 py-1 text-2xl hover:bg-[#6f20203c]"
+            class="flex w-36 items-center space-x-2 rounded-md border border-[#ff0000] px-2 py-1 hover:bg-[#6f20203c]"
             v-else
             @click="stopRecording"
           >
             <img
               class="w-9"
-              src="../assets/images/pause_recording_red.svg"
+              src="../assets/images/stop.svg"
               alt=""
             />
-            <p class="pb-1 pr-2 font-medium text-[#FF0000]">Pause</p>
+            <p class="pb-0.5 pr-2 text-xl font-light text-[#FF0000]">Pause</p>
           </button>
         </div>
         <button
           v-if="isRecorded === true"
           @click="finishRecording"
           type="submit"
-          class="rounded-full bg-primary px-2 py-2"
+          class="rounded-full px-3 py-1 text-sm font-light text-white/50 hover:bg-red-700/20 hover:text-white"
         >
-          <img
-            class="w-6"
-            src="../assets/images/arrow_right.svg"
-            alt=""
-          />
+          Finish Recording
         </button>
       </div>
       <div v-else>
         <form
           @submit.prevent="handleSubmit"
           enctype="multipart/form-data"
-          class="flex items-center justify-between space-x-5 p-1"
+          class="relative items-center justify-between space-x-5"
         >
           <audio
             v-if="audioUrl"
@@ -155,11 +147,10 @@
           <button
             @click="finishRecording"
             type="submit"
-            class="rounded-full bg-primary px-2 py-2"
           >
             <img
-              class="w-9"
-              src="../assets/images/arrow_right.svg"
+              class="absolute left-1/2 top-20 w-9 translate-x-[-50%] transition-transform duration-300 hover:scale-110"
+              src="../assets/images/arrow-right-circle.svg "
               alt=""
             />
           </button>
@@ -177,7 +168,7 @@
   const selectedFile = ref<File | null>(null);
   const apiEndpoint = config.public.API_ENDPOINT_BASE_URL;
   const router = useRouter();
-  const feedback = useState("feedback", () => shallowRef());
+  const comment = useState("comment", () => shallowRef());
   const transcription = useState("transcription", () => shallowRef());
   const showUploadModal = ref(false);
   const showRecordModal = ref(false);
@@ -203,6 +194,14 @@
       console.log("【ファイル更新処理失敗】：" + error);
       alert("エラーが発生しました");
     }
+  };
+
+  const closeRecordModal = () => {
+    showRecordModal.value = false;
+    isRecording.value = false;
+    doneRecording.value = false;
+    isRecorded.value = false;
+    recordedAudioFile.value = null;
   };
 
   const startRecording = async () => {
@@ -261,9 +260,9 @@
       });
       const data = await response.json();
       if (data.status === "success") {
-        feedback.value = await data.value.feedback;
+        comment.value = await data.value.comment;
         transcription.value = await data.value.transcription;
-        router.push("/feedback");
+        router.push("/comment");
       } else if (data.status === "invalid") {
         alert(data.value); // データが存在しません
       }
@@ -293,5 +292,9 @@
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  .primary-shadow {
+    text-shadow: #ff80009a 0 0 4px;
   }
 </style>

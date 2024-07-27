@@ -24,17 +24,19 @@
         <h2
           class="mb-2 border-b border-t border-primary py-3 text-center text-xl text-primary"
         >
-          Comments
+          Comment
         </h2>
-        <div class="mt-1 max-h-full overflow-auto px-3 pb-5 text-lg leading-9">
-          {{ feedbackInStorage }}
+        <div
+          class="comment mt-1 max-h-full overflow-auto px-3 pb-5 text-lg leading-9"
+        >
+          {{ commentInStorage }}
         </div>
       </div>
       <div
         class="flex w-2/5 flex-col rounded-md bg-black/40 px-7 py-5 text-gray-300"
       >
         <h2 class="mb-2 text-center text-xl">Chat Log</h2>
-        <div class="overflow-auto px-2 py-1 text-lg">
+        <div class="transcription overflow-auto px-2 py-1 text-lg">
           {{ transcriptionInStorage }}
         </div>
       </div>
@@ -44,15 +46,17 @@
 
 <script lang="ts" setup>
   import { useStorage } from "@vueuse/core";
-  const feedback = useState("feedback", () => shallowRef(""));
+  const comment = useState("comment", () => shallowRef(""));
   const transcription = useState("transcription", () => shallowRef(""));
-  const feedbackInStorage = useStorage("feedback", "");
+  const commentInStorage = useStorage("comment", "");
   const transcriptionInStorage = useStorage("transcriptionInStorage", "");
   const isLoading = ref(true);
 
   onMounted(() => {
-    if (feedback.value && feedback.value !== "") {
-      feedbackInStorage.value = feedback.value;
+    console.log("comment" + comment.value);
+
+    if (comment.value && comment.value !== "") {
+      commentInStorage.value = comment.value;
     }
     if (transcription.value && transcription.value !== "") {
       transcriptionInStorage.value = transcription.value;
@@ -62,9 +66,31 @@
 </script>
 
 <style>
-  .overflow-auto::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background: #ffffff00;
+  ::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 2px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgb(18, 18, 18);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+  }
+
+  /* Handle */
+  .comment::-webkit-scrollbar-thumb {
+    background: #b05800;
+  }
+
+  .transcription::-webkit-scrollbar-thumb {
+    background: #b1b1b1;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
   }
 </style>
