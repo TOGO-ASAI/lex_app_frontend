@@ -145,7 +145,6 @@
             controls
           ></audio>
           <button
-            @click="finishRecording"
             type="submit"
           >
             <img
