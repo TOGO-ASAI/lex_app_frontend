@@ -20,7 +20,7 @@
             class="aspect-square w-16 sm:w-24"
             src="../assets/images/upload.svg"
           />
-          <p class="primary-shadow text-md text-primary">UPLOAD</p>
+          <p class="text-md text-primary">UPLOAD</p>
         </button>
         <button
           class="mx-11 flex flex-col items-center transition-transform duration-300 hover:scale-125 hover:opacity-100"
@@ -30,7 +30,7 @@
             class="aspect-square w-16 sm:w-24"
             src="../assets/images/sounds.svg"
           />
-          <p class="primary-shadow text-md text-primary">RECORD</p>
+          <p class="text-md text-primary">RECORD</p>
         </button>
       </div>
     </div>
@@ -144,9 +144,7 @@
             :src="audioUrl"
             controls
           ></audio>
-          <button
-            type="submit"
-          >
+          <button type="submit">
             <img
               class="absolute left-1/2 top-20 w-9 translate-x-[-50%] transition-transform duration-300 hover:scale-110"
               src="../assets/images/arrow-right-circle.svg "
@@ -291,9 +289,5 @@
     100% {
       transform: rotate(360deg);
     }
-  }
-
-  .primary-shadow {
-    text-shadow: #ff80009a 0 0 4px;
   }
 </style>
