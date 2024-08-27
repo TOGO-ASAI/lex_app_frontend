@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isLoading"
-    class="fixed inset-0 z-10 flex items-center justify-center bg-grey-dark"
+    class="bg-grey-dark fixed inset-0 z-10 flex items-center justify-center"
   >
     <div
       v-if="isLoading"
@@ -20,25 +20,49 @@
       />HOME</NuxtLink
     >
     <div class="flex h-[75vh] gap-5">
-      <div class="relative mx-5 flex w-3/5 flex-col px-5 text-gray-300">
-        <h2
-          class="mb-2 border-b border-t border-primary py-3 text-center text-xl text-primary"
-        >
-          Comment
-        </h2>
+      <div
+        class="relative mx-5 flex w-6/12 flex-col rounded-lg px-5 text-gray-300"
+      >
+        <h2 class="mb-2 py-2 text-center text-xl text-primary">COMMENT</h2>
         <div
-          class="comment mt-1 max-h-full overflow-auto px-3 pb-5 text-lg leading-9"
-        >
-          {{ commentInStorage }}
-        </div>
+          class="comment mt-1 max-h-full overflow-auto px-3 pb-5"
+          v-html="commentInStorage"
+        ></div>
       </div>
       <div
-        class="flex w-2/5 flex-col rounded-md bg-black/40 px-7 py-5 text-gray-300"
+        class="flex w-6/12 flex-col rounded-md bg-black/40 px-7 py-5 text-gray-300"
       >
-        <h2 class="mb-2 text-center text-xl">Chat Log</h2>
-        <div class="transcription overflow-auto px-2 py-1 text-lg">
-          {{ transcriptionInStorage }}
-        </div>
+        <Tabs
+          default-value="english"
+          class="transcription h-full overflow-y-auto px-2"
+        >
+          <TabsList class="w-full bg-neutral-900">
+            <TabsTrigger
+              value="english"
+              class="w-full"
+            >
+              English
+            </TabsTrigger>
+            <TabsTrigger
+              value="japanese"
+              class="w-full"
+            >
+              Japanese
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="english">
+            <div
+              class="px-2 py-1 text-lg leading-relaxed"
+              v-html="transcriptionInStorage"
+            ></div>
+          </TabsContent>
+          <TabsContent value="japanese">
+            <div
+              class="px-2 py-1 text-lg leading-relaxed"
+              v-html="transcriptionJpInStorage"
+            ></div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   </div>
@@ -46,20 +70,32 @@
 
 <script lang="ts" setup>
   import { useStorage } from "@vueuse/core";
+  import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+  } from "@/components/ui/tabs";
   const comment = useState("comment", () => shallowRef(""));
   const transcription = useState("transcription", () => shallowRef(""));
+  const transcriptionJp = useState("transcriptionJp", () => shallowRef(""));
   const commentInStorage = useStorage("comment", "");
   const transcriptionInStorage = useStorage("transcriptionInStorage", "");
+  const transcriptionJpInStorage = useStorage("transcriptionJpInStorage", "");
   const isLoading = ref(true);
 
-  onMounted(() => {
+  onMounted(async () => {
     console.log("comment" + comment.value);
+    console.log("transcription" + transcription.value);
 
     if (comment.value && comment.value !== "") {
-      commentInStorage.value = comment.value;
+      commentInStorage.value = comment.value.split("-->").join("\n");
     }
     if (transcription.value && transcription.value !== "") {
       transcriptionInStorage.value = transcription.value;
+    }
+    if (transcriptionJp.value && transcriptionJp.value !== "") {
+      transcriptionJpInStorage.value = transcriptionJp.value;
     }
     isLoading.value = false;
   });
@@ -92,5 +128,21 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background-color: #b05800c5;
+    padding: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .paragraph {
+    font-size: 1.25rem;
+  }
+
+  .paragraph p {
+    margin-bottom: 2rem;
   }
 </style>
