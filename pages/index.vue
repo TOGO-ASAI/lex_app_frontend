@@ -167,6 +167,7 @@
   const router = useRouter();
   const comment = useState("comment", () => shallowRef());
   const transcription = useState("transcription", () => shallowRef());
+  const transcriptionJp = useState("transcriptionJp", () => shallowRef());
   const showUploadModal = ref(false);
   const showRecordModal = ref(false);
   const isRecording = ref(false);
@@ -259,6 +260,7 @@
       if (data.status === "success") {
         comment.value = await data.value.comment;
         transcription.value = await data.value.transcription;
+        transcriptionJp.value = await data.value.transcription_jp;
         router.push("/comment");
       } else if (data.status === "invalid") {
         alert(data.value); // データが存在しません

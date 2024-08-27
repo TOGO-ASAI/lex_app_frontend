@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen bg-gradient-to-t from-black to-grey-dark">
+  <div class="relative min-h-screen bg-gradient-to-t from-black to-neutral-800">
     <slot />
     <img
       class="absolute left-4 top-4 h-10"
