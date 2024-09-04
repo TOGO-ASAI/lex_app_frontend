@@ -12,12 +12,5 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
-  },
-  hooks: {
-    "vite:extendConfig": (config) => {
-      if (typeof config.server!.hmr === "object") {
-        config.server!.hmr.protocol = "wss";
-      }
-    },
-  },
+  }
 });
